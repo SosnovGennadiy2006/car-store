@@ -10,12 +10,21 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    widgets/signinform.cpp \
+    widgets/signupform.cpp \
+    widgets/welcomewidget.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    widgets/signinform.h \
+    widgets/signupform.h \
+    widgets/welcomewidget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    json/users.json
