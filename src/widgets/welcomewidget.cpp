@@ -87,5 +87,5 @@ void WelcomeWidget::redirectToSignUp()
 {
     signIn->hide();
     signUp->show();
-    signUp->clearFields();
+    signIn->clearFields();
 }
