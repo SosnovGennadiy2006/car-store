@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QSpacerItem>
+#include <widgets/buttons/customcheckbox.h>
 
 class SignUpForm : public QWidget
 {
@@ -31,6 +32,11 @@ class SignUpForm : public QWidget
     QHBoxLayout* repeatedPasswordLayout;
     QLabel* repeatedPasswordLabel;
     QLineEdit* repeatedPasswordLineEdit;
+    QWidget* vendorWidget;
+    QHBoxLayout* vendorLayout;
+    QLabel* vendorLabel;
+    CustomCheckBox* vendorCheckBox;
+
     QWidget* questionWidget;
     QHBoxLayout* questionLayout;
     QLabel* questionLabel;
@@ -39,10 +45,12 @@ class SignUpForm : public QWidget
     QHBoxLayout* signUpButtonLayout;
     QPushButton* signUpButton;
 
+
     QSpacerItem* emailSpacer;
     QSpacerItem* nameSpacer;
     QSpacerItem* passwordSpacer;
     QSpacerItem* repeatedPasswordSpacer;
+    QSpacerItem* vendorSpacer;
     QSpacerItem* questionSpacer;
     QSpacerItem* signInButtonSpacer1;
     QSpacerItem* signInButtonSpacer2;
@@ -54,6 +62,7 @@ public:
     QString getName() const;
     QString getPassword() const;
     QString getRepeatedPassword() const;
+    bool isVendor() const;
 
     void clearFields();
 

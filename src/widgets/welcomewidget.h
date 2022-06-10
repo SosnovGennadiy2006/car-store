@@ -30,6 +30,7 @@ public:
     QString getSignUpEmail() const;
     QString getSignUpPassword() const;
     QString getSignUpRepeatedPassword() const;
+    bool isVendor_signUp() const;
 
 signals:
     void onSignIn();

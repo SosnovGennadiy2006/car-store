@@ -76,6 +76,11 @@ QString WelcomeWidget::getSignUpRepeatedPassword() const
     return signUp->getRepeatedPassword();
 }
 
+bool WelcomeWidget::isVendor_signUp() const
+{
+    return signUp->isVendor();
+}
+
 void WelcomeWidget::redirectToSignIn()
 {
     signUp->hide();

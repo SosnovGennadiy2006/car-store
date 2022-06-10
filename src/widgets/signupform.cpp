@@ -69,6 +69,19 @@ SignUpForm::SignUpForm(QWidget *parent)
     repeatedPasswordLayout->setSpacing(0);
     repeatedPasswordLayout->setContentsMargins(0, 0, 0, 0);
 
+    vendorWidget = new QWidget(this);
+    vendorLayout = new QHBoxLayout(vendorWidget);
+    vendorLabel = new QLabel(vendorWidget);
+    vendorLabel->setText("Is vendor? ");
+    vendorCheckBox = new CustomCheckBox(vendorWidget);
+    vendorSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    vendorLayout->addItem(vendorSpacer);
+    vendorLayout->addWidget(vendorLabel);
+    vendorLayout->addWidget(vendorCheckBox);
+    vendorLayout->setSpacing(0);
+    vendorLayout->setContentsMargins(0, 0, 0, 0);
+
     signUpButtonWidget = new QWidget(this);
     signUpButtonLayout = new QHBoxLayout(signUpButtonWidget);
     signInButtonSpacer1 = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -101,6 +114,7 @@ SignUpForm::SignUpForm(QWidget *parent)
     mainLayout->addWidget(nameWidget);
     mainLayout->addWidget(passwordWidget);
     mainLayout->addWidget(repeatedPasswordWidget);
+    mainLayout->addWidget(vendorWidget);
     mainLayout->addWidget(signUpButtonWidget);
     mainLayout->addWidget(questionWidget);
     mainLayout->setSpacing(5);
@@ -140,4 +154,13 @@ void SignUpForm::clearFields()
     this->emailLineEdit->setText("");
     this->passwordLineEdit->setText("");
     this->repeatedPasswordLineEdit->setText("");
+}
+
+bool SignUpForm::isVendor() const
+{
+    if (vendorCheckBox->checkState() == Qt::CheckState::Checked)
+    {
+        return true;
+    }
+    return false;
 }

@@ -197,6 +197,13 @@ void MainWindow::signUp()
     userObj.insert("email", userEmail);
     userObj.insert("password", userPassword);
     userObj.insert("date", QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"));
+    if (welcomeWidget->isVendor_signUp())
+    {
+        userObj.insert("type", "vendor");
+    }else
+    {
+        userObj.insert("type", "client");
+    }
 
     usersArray.append(userObj);
 

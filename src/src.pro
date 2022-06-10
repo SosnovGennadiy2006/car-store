@@ -12,12 +12,14 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    widgets/buttons/customcheckbox.cpp \
     widgets/signinform.cpp \
     widgets/signupform.cpp \
     widgets/welcomewidget.cpp
 
 HEADERS += \
     mainwindow.h \
+    widgets/buttons/customcheckbox.h \
     widgets/signinform.h \
     widgets/signupform.h \
     widgets/welcomewidget.h
