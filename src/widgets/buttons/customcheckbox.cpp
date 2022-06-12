@@ -3,6 +3,7 @@
 CustomCheckBox::CustomCheckBox(QWidget* parent) : QCheckBox{parent}
 {
     this->setText("No");
+    this->setCursor(Qt::CursorShape::PointingHandCursor);
 
     connect(this, &CustomCheckBox::stateChanged, this, &CustomCheckBox::onCheckStateChanged);
 }

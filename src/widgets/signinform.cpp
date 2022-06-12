@@ -60,6 +60,7 @@ SignInForm::SignInForm(QWidget *parent)
     signInButton = new QPushButton(signInButtonWidget);
     signInButton->setText("Sign In");
     signInButton->setMinimumWidth(90);
+    signInButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
 
     signInButtonLayout->addItem(signInButtonSpacer1);
     signInButtonLayout->addWidget(signInButton);
@@ -74,6 +75,7 @@ SignInForm::SignInForm(QWidget *parent)
     questionSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     questionButton = new QPushButton(questionWidget);
     questionButton->setText("Sign Up");
+    questionButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
 
     questionLayout->addWidget(questionLabel);
     questionLayout->addItem(questionSpacer);

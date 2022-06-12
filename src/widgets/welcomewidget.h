@@ -16,10 +16,15 @@ class WelcomeWidget : public QWidget
     Q_OBJECT
 
     QVBoxLayout* mainLayout;
+    QWidget* formsWidget;
+    QHBoxLayout* formsLayout;
     QLabel* welcomeLabel;
     QLabel* aboutLabel;
     SignInForm* signIn;
     SignUpForm* signUp;
+
+    QSpacerItem* firstSpacer;
+    QSpacerItem* secondSpacer;
 public:
     explicit WelcomeWidget(QWidget *parent = nullptr);
 

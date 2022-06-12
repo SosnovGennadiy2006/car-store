@@ -14,19 +14,21 @@
 #include <QDir>
 #include <QRegExp>
 #include <widgets/welcomewidget.h>
+#include <widgets/mainwidget.h>
+#include <logics/user.h>
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    QWidget* centralWidget;
-    WelcomeWidget* welcomeWidget;
     QVBoxLayout* mainLayout;
 
-    QSpacerItem* firstSpacer;
-    QSpacerItem* secondSpacer;
+    WelcomeWidget* welcomeWidget;
+    MainWidget* mainWidget;
 
     QString usersDatabasePath;
+
+    User* registeredUser = new User(UserTypes::client);
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -36,8 +38,11 @@ public:
     void alert(QString message);
     void info(QString message);
 
+    void redirectToMainWidget();
+
 public slots:
     void signIn();
     void signUp();
+    void exit();
 };
 #endif // MAINWINDOW_H

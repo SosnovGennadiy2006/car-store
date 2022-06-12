@@ -10,16 +10,26 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    logics/user.cpp \
     main.cpp \
     mainwindow.cpp \
     widgets/buttons/customcheckbox.cpp \
+    widgets/buttons/menubutton.cpp \
+    widgets/mainwidget.cpp \
+    widgets/menu.cpp \
+    widgets/menuWidgets/profilewidget.cpp \
     widgets/signinform.cpp \
     widgets/signupform.cpp \
     widgets/welcomewidget.cpp
 
 HEADERS += \
+    logics/user.h \
     mainwindow.h \
     widgets/buttons/customcheckbox.h \
+    widgets/buttons/menubutton.h \
+    widgets/mainwidget.h \
+    widgets/menu.h \
+    widgets/menuWidgets/profilewidget.h \
     widgets/signinform.h \
     widgets/signupform.h \
     widgets/welcomewidget.h

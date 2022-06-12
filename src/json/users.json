@@ -1,18 +1,15 @@
 {
     "users": [
         {
-            "date": "10.06.2022 17:25:56",
+            "age": -1,
             "email": "1@1.com",
-            "name": "1",
-            "password": "1",
-            "type": "vendor"
-        },
-        {
-            "date": "10.06.2022 17:26:16",
-            "email": "2@2.com",
-            "name": "1",
-            "password": "1",
-            "type": "client"
+            "id": 1,
+            "name": "admin",
+            "password": "admin",
+            "phone": "",
+            "registrationDate": "12.06.2022 11:31:53",
+            "surname": "",
+            "type": "admin"
         }
     ]
 }

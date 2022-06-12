@@ -4,6 +4,7 @@ WelcomeWidget::WelcomeWidget(QWidget *parent)
     : QWidget{parent}
 {
     mainLayout = new QVBoxLayout(this);
+    mainLayout->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
     QFont bigFont = QFont();
     bigFont.setPixelSize(32);
@@ -22,12 +23,25 @@ WelcomeWidget::WelcomeWidget(QWidget *parent)
 
     signIn = new SignInForm(this);
     signUp = new SignUpForm(this);
+    signUp->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
     signUp->hide();
 
+    formsWidget = new QWidget(this);
+    formsWidget->setMaximumWidth(500);
+    formsWidget->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    formsLayout = new QHBoxLayout(formsWidget);
+
+    formsLayout->addWidget(signIn);
+    formsLayout->addWidget(signUp);
+
+    firstSpacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    secondSpacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+    mainLayout->addItem(firstSpacer);
     mainLayout->addWidget(welcomeLabel);
     mainLayout->addWidget(aboutLabel);
-    mainLayout->addWidget(signIn);
-    mainLayout->addWidget(signUp);
+    mainLayout->addWidget(formsWidget, Qt::AlignmentFlag::AlignHCenter);
+    mainLayout->addItem(secondSpacer);
     mainLayout->setSpacing(0);
 
     connect(signIn, &SignInForm::onRedirection, this, &WelcomeWidget::redirectToSignUp);

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(welcomeWidget, &WelcomeWidget::onSignIn, this, &MainWindow::signIn);
     connect(welcomeWidget, &WelcomeWidget::onSignUp, this, &MainWindow::signUp);
+    connect(mainWidget, &MainWidget::onExitButtonClicked, this, &MainWindow::exit);
 
     QDir d = QDir::current();
     d.cdUp();
@@ -22,24 +23,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::init_UI()
 {
-    this->setMinimumSize(500, 400);
-    centralWidget = new QWidget(this);
+    this->setWindowTitle("Car Store");
 
-    mainLayout = new QVBoxLayout(centralWidget);
-    mainLayout->setAlignment(Qt::AlignmentFlag::AlignCenter);
+    this->setMinimumSize(1000, 600);
 
-    welcomeWidget = new WelcomeWidget(centralWidget);
-    welcomeWidget->setMaximumWidth(400);
-    welcomeWidget->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
+    welcomeWidget = new WelcomeWidget(this);
+    welcomeWidget->show();
+    mainWidget = new MainWidget(this);
+    mainWidget->hide();
 
-    firstSpacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    secondSpacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-    mainLayout->addItem(firstSpacer);
-    mainLayout->addWidget(welcomeWidget, Qt::AlignmentFlag::AlignCenter);
-    mainLayout->addItem(secondSpacer);
-
-    this->setCentralWidget(centralWidget);
+    this->setCentralWidget(welcomeWidget);
 }
 
 void MainWindow::alert(QString message)
@@ -50,6 +43,18 @@ void MainWindow::alert(QString message)
 void MainWindow::info(QString message)
 {
     QMessageBox::information(this, "Info", message);
+}
+
+void MainWindow::redirectToMainWidget()
+{
+    welcomeWidget = new WelcomeWidget(this);
+    welcomeWidget->hide();
+    mainWidget->show();
+    mainWidget->setUser(registeredUser);
+    this->setCentralWidget(mainWidget);
+
+    connect(welcomeWidget, &WelcomeWidget::onSignIn, this, &MainWindow::signIn);
+    connect(welcomeWidget, &WelcomeWidget::onSignUp, this, &MainWindow::signUp);
 }
 
 void MainWindow::signIn()
@@ -100,16 +105,43 @@ void MainWindow::signIn()
         return;
     }
 
+    registeredUser = new User(UserTypes::client);
+
     for (qsizetype i = 0; i < usersArray.size(); i++)
     {
         QJsonObject user = usersArray.at(i).toObject();
 
         if (user.take("email").toString() == userEmail)
         {
-            if (user.take("password").toString() == userPassword &&
-                    user.take("name").toString() == userName)
+            if (user["password"].toString() == userPassword &&
+                    user["name"].toString() == userName)
             {
+                registeredUser->setId(user["id"].toInt());
+                registeredUser->setName(user["name"].toString());
+                registeredUser->setSurname(user["surname"].toString());
+                registeredUser->setAge(user["age"].toInt());
+                registeredUser->setPassword(user["password"].toString());
+                registeredUser->setEmailAdress(user["email"].toString());
+                registeredUser->setRegistrationDate(user["registrationDate"].toString());
+                registeredUser->setPhoneNumber(user["phone"].toString());
+
+                QString userType = user["type"].toString();
+
+                if (userType == "client")
+                {
+                    registeredUser->setUserType(UserTypes::client);
+                }else if(userType == "vendor")
+                {
+                    registeredUser->setUserType(UserTypes::vendor);
+                }else if(userType == "admin")
+                {
+                    registeredUser->setUserType(UserTypes::admin);
+                }
+
                 info("You have been successfully signed in!");
+
+                redirectToMainWidget();
+
                 return;
             }
             break;
@@ -125,6 +157,8 @@ void MainWindow::signUp()
     QString userEmail = welcomeWidget->getSignUpEmail();
     QString userPassword = welcomeWidget->getSignUpPassword();
     QString userRepeatedPassword = welcomeWidget->getSignUpRepeatedPassword();
+    QString registrationDate = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
+    qint32 userId = 1;
     QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
     mailREX.setCaseSensitivity(Qt::CaseInsensitive);
     mailREX.setPatternSyntax(QRegExp::RegExp);
@@ -183,7 +217,7 @@ void MainWindow::signUp()
     for (qsizetype i = 0; i < usersArray.size(); i++)
     {
         QJsonObject user = usersArray.at(i).toObject();
-        _userEmail = user.take("email").toString();
+        _userEmail = user["email"].toString();
 
         if (_userEmail == userEmail)
         {
@@ -192,14 +226,26 @@ void MainWindow::signUp()
         }
     }
 
+    if (usersArray.size() != 0)
+    {
+        userId = usersArray.at(usersArray.size() - 1).toObject().take("id").toInt() + 1;
+    }
+
+    registeredUser = new User(UserTypes::client);
+
     QJsonObject userObj;
+    userObj.insert("id", userId);
     userObj.insert("name", userName);
+    userObj.insert("surname", "");
+    userObj.insert("age", -1);
     userObj.insert("email", userEmail);
     userObj.insert("password", userPassword);
-    userObj.insert("date", QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"));
+    userObj.insert("phone", "");
+    userObj.insert("registrationDate", registrationDate);
     if (welcomeWidget->isVendor_signUp())
     {
         userObj.insert("type", "vendor");
+        registeredUser->setUserType(UserTypes::vendor);
     }else
     {
         userObj.insert("type", "client");
@@ -216,4 +262,24 @@ void MainWindow::signUp()
     file.close();
 
     info("You have been successfully registered!");
+
+    registeredUser->setId(userId);
+    registeredUser->setName(userName);
+    registeredUser->setEmailAdress(userName);
+    registeredUser->setPassword(userPassword);
+    registeredUser->setRegistrationDate(registrationDate);
+
+    redirectToMainWidget();
+}
+
+void MainWindow::exit()
+{
+    registeredUser = new User(UserTypes::client);
+    welcomeWidget->show();
+    mainWidget = new MainWidget(this);
+    mainWidget->hide();
+    mainWidget->setUser(registeredUser);
+    this->setCentralWidget(welcomeWidget);
+
+    connect(mainWidget, &MainWidget::onExitButtonClicked, this, &MainWindow::exit);
 }
