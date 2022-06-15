@@ -8,6 +8,7 @@
 #include <logics/user.h>
 #include <widgets/menu.h>
 #include <widgets/menuWidgets/profilewidget.h>
+#include <widgets/menuWidgets/cartwidget.h>
 
 class MainWidget : public QWidget
 {
@@ -21,7 +22,10 @@ class MainWidget : public QWidget
 
     ProfileWidget* profile;
 
+    CartWidget* shoppingCart;
+
     QScrollArea* profileScroll;
+    QScrollArea* cartScroll;
 
 public:
     explicit MainWidget(QWidget *parent = nullptr);
@@ -40,6 +44,7 @@ signals:
 
 public slots:
     void redirectToProfile();
+    void redirectToCart();
 };
 
 #endif // MAINWIDGET_H

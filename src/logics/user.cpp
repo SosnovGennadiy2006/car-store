@@ -83,6 +83,16 @@ QString User::getRegistrationDate() const
     return registrationDate;
 }
 
+QVector<Order> User::getOrders() const
+{
+    return allUserOrders;
+}
+
+Order User::getOrder(qsizetype idx) const
+{
+    return allUserOrders[idx];
+}
+
 void User::setId(const qint32& id)
 {
     userId = id;
@@ -126,4 +136,24 @@ void User::setUserType(const UserTypes& name)
 void User::setRegistrationDate(const QString& _date)
 {
     registrationDate = _date;
+}
+
+void User::addOrder(const Order &addedOrder)
+{
+    allUserOrders.append(addedOrder);
+}
+
+void User::popOrder()
+{
+    allUserOrders.pop_back();
+}
+
+void User::setOrders(const QVector<Order> &newOrders)
+{
+    allUserOrders = newOrders;
+}
+
+void User::setOrder(qsizetype idx, const Order &newOrder)
+{
+    allUserOrders[idx] = newOrder;
 }

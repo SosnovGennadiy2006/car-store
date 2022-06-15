@@ -17,6 +17,7 @@ SOURCES += \
     libs/RangeLineEdit/PositionalLineEdit.cpp \
     libs/RangeLineEdit/Ranges.cpp \
     libs/RangeLineEdit/TrianglePaintedButton.cpp \
+    logics/order.cpp \
     logics/user.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -27,7 +28,9 @@ SOURCES += \
     widgets/buttons/profileLineEdits/profilelineedit_string.cpp \
     widgets/mainwidget.cpp \
     widgets/menu.cpp \
+    widgets/menuWidgets/cartwidget.cpp \
     widgets/menuWidgets/profilewidget.cpp \
+    widgets/menuWidgets/userorderswidget.cpp \
     widgets/signinform.cpp \
     widgets/signupform.cpp \
     widgets/welcomewidget.cpp
@@ -41,6 +44,7 @@ HEADERS += \
     libs/RangeLineEdit/RangeLineEdit.h \
     libs/RangeLineEdit/Ranges.h \
     libs/RangeLineEdit/TrianglePaintedButton.h \
+    logics/order.h \
     logics/user.h \
     mainwindow.h \
     widgets/buttons/customcheckbox.h \
@@ -50,7 +54,9 @@ HEADERS += \
     widgets/buttons/profileLineEdits/profilelineedit_string.h \
     widgets/mainwidget.h \
     widgets/menu.h \
+    widgets/menuWidgets/cartwidget.h \
     widgets/menuWidgets/profilewidget.h \
+    widgets/menuWidgets/userorderswidget.h \
     widgets/signinform.h \
     widgets/signupform.h \
     widgets/welcomewidget.h

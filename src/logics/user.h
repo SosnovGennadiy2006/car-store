@@ -2,6 +2,8 @@
 #define USER_H
 
 #include <QString>
+#include <QVector>
+#include <logics/order.h>
 
 enum UserTypes
 {
@@ -22,6 +24,7 @@ private:
     QString phoneNumber;
     UserTypes userType;
     QString registrationDate;
+    QVector<Order> allUserOrders;
 public:
     User() = default;
     explicit User(const UserTypes& _type);
@@ -37,6 +40,8 @@ public:
     QString getPhoneNumber() const;
     UserTypes getUserType() const;
     QString getRegistrationDate() const;
+    QVector<Order> getOrders() const;
+    Order getOrder(qsizetype idx) const;
 
     void setId(const qint32& id);
     void setName(const QString& name);
@@ -47,6 +52,11 @@ public:
     void setPhoneNumber(const QString& phoneNumber);
     void setUserType(const UserTypes& type);
     void setRegistrationDate(const QString& _date);
+
+    void addOrder(const Order& addedOrder);
+    void popOrder();
+    void setOrders(const QVector<Order>& newOrders);
+    void setOrder(qsizetype idx, const Order& newOrder);
 };
 
 #endif // USER_H

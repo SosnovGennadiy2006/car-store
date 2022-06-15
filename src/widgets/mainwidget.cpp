@@ -22,15 +22,30 @@ MainWidget::MainWidget(QWidget *parent)
     profileScroll->setWidget(profile);
     profileScroll->setWidgetResizable(true);
 
+    shoppingCart = new CartWidget();
+    shoppingCart->setUser(registeredUser);
+
+    cartScroll = new QScrollArea(this);
+    cartScroll->setStyleSheet("QScrollArea {"
+                                 "  border: none;"
+                                 "}");
+    cartScroll->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    cartScroll->setWidget(shoppingCart);
+    cartScroll->setWidgetResizable(true);
+
     mainLayout->addWidget(widgetMenu);
     mainLayout->addWidget(profileScroll);
+    mainLayout->addWidget(cartScroll);
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0, 0, 0, 0);
+
+    cartScroll->hide();
 
     connect(widgetMenu, &Menu::onExitButtonClicked, this, [this](){
         emit this->onExitButtonClicked();
     });
     connect(widgetMenu, &Menu::onProfileButtonClicked, this, &MainWidget::redirectToProfile);
+    connect(widgetMenu, &Menu::onCartButtonClicked, this, &MainWidget::redirectToCart);
     connect(profile, &ProfileWidget::userCorrected, this, [this](User* correctedUser){
         emit onUserCorrected(correctedUser);
     });
@@ -54,8 +69,15 @@ bool MainWidget::isProfileChanged()
 
 void MainWidget::redirectToProfile()
 {
+    profileScroll->show();
+    cartScroll->hide();
 }
 
+void MainWidget::redirectToCart()
+{
+    profileScroll->hide();
+    cartScroll->show();
+}
 
 void MainWidget::saveProfileChanges()
 {
