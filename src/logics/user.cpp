@@ -14,6 +14,7 @@ User::User(const UserTypes& _type)
 
 User::User(const User& other)
 {
+    userId = other.getId();
     userName = other.getName();
     userSurname = other.getSurname();
     userAge = other.getAge();
@@ -22,6 +23,19 @@ User::User(const User& other)
     phoneNumber = other.getPhoneNumber();
     userType = other.getUserType();
     registrationDate = other.getRegistrationDate();
+}
+
+User::User(const User* other)
+{
+    userId = other->getId();
+    userName = other->getName();
+    userSurname = other->getSurname();
+    userAge = other->getAge();
+    userEmailAdress = other->getEmailAdress();
+    userPassword = other->getPassword();
+    phoneNumber = other->getPhoneNumber();
+    userType = other->getUserType();
+    registrationDate = other->getRegistrationDate();
 }
 
 qint32 User::getId() const

@@ -8,35 +8,43 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QSpacerItem>
+#include <QFont>
 #include <logics/user.h>
+#include <widgets/buttons/profileLineEdits/profilelineedit_int.h>
+#include <widgets/buttons/profileLineEdits/profilelineedit_string.h>
+#include <widgets/buttons/profileLineEdits/profilelineedit_phone.h>
 
 class ProfileWidget : public QFrame
 {
     Q_OBJECT
+
+    bool _isChanged;
 
     User* registeredUser;
 
     QVBoxLayout* mainLayout;
 
     QLabel* welcomeLabel;
+    QLabel* idLabel;
     QLabel* aboutLabel;
 
     QFrame* hLine1;
+    QFrame* hLine2;
 
     QWidget* nameWidget;
     QHBoxLayout* nameLayout;
     QLabel* nameLabel;
-    QLabel* nameLabel_present;
+    ProfileLineEdit_String* nameLabel_present;
 
     QWidget* surnameWidget;
     QHBoxLayout* surnameLayout;
     QLabel* surnameLabel;
-    QLabel* surnameLabel_present;
+    ProfileLineEdit_String* surnameLabel_present;
 
     QWidget* ageWidget;
     QHBoxLayout* ageLayout;
     QLabel* ageLabel;
-    QLabel* ageLabel_present;
+    ProfileLineEdit_Int* ageLabel_present;
 
     QWidget* emailAdressWidget;
     QHBoxLayout* emailAdressLayout;
@@ -46,13 +54,21 @@ class ProfileWidget : public QFrame
     QWidget* phoneNumberWidget;
     QHBoxLayout* phoneNumberLayout;
     QLabel* phoneNumberLabel;
-    QLabel* phoneNumberLabel_present;
+    ProfileLineEdit_Phone* phoneNumberLabel_present;
 
-    QWidget* registrationWidget;
-    QHBoxLayout* registrationLayout;
-    QLabel* registrationLabel;
-    QLabel* registrationLabel_present;
+    QWidget* registrationDateWidget;
+    QHBoxLayout* registrationDateLayout;
+    QLabel* registrationDateLabel;
+    QLabel* registrationDateLabel_present;
 
+    QLabel* isVendorLabel;
+
+    QWidget* saveButtonWidget;
+    QHBoxLayout* saveButtonLayout;
+    QPushButton* saveButton;
+
+    QSpacerItem* firstSaveButtonSpacer;
+    QSpacerItem* secondSaveButtonSpacer;
     QSpacerItem* nameSpacer;
     QSpacerItem* surnameSpacer;
     QSpacerItem* ageSpacer;
@@ -66,6 +82,17 @@ public:
     User* getUser() const;
 
     void setUser(User* newUser);
+
+    bool isChanged();
+
+    void saveUser();
+
+signals:
+    void userCorrected(User* savedUser);
+
+private slots:
+    void onEdited();
+    void onSaveButtonClicked();
 };
 
 #endif // PROFILEWIDGET_H

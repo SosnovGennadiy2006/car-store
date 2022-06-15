@@ -40,9 +40,13 @@ public:
 
     void redirectToMainWidget();
 
+protected:
+     void closeEvent(QCloseEvent *event);
+
 public slots:
     void signIn();
     void signUp();
     void exit();
+    void userCorrected(User* correctedUser);
 };
 #endif // MAINWINDOW_H

@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(welcomeWidget, &WelcomeWidget::onSignIn, this, &MainWindow::signIn);
     connect(welcomeWidget, &WelcomeWidget::onSignUp, this, &MainWindow::signUp);
     connect(mainWidget, &MainWidget::onExitButtonClicked, this, &MainWindow::exit);
+    connect(mainWidget, &MainWidget::onUserCorrected, this, &MainWindow::userCorrected);
 
     QDir d = QDir::current();
     d.cdUp();
@@ -111,7 +112,7 @@ void MainWindow::signIn()
     {
         QJsonObject user = usersArray.at(i).toObject();
 
-        if (user.take("email").toString() == userEmail)
+        if (user["email"].toString() == userEmail)
         {
             if (user["password"].toString() == userPassword &&
                     user["name"].toString() == userName)
@@ -282,4 +283,76 @@ void MainWindow::exit()
     this->setCentralWidget(welcomeWidget);
 
     connect(mainWidget, &MainWidget::onExitButtonClicked, this, &MainWindow::exit);
+    connect(mainWidget, &MainWidget::onUserCorrected, this, &MainWindow::userCorrected);
+}
+
+void MainWindow::userCorrected(User* correctedUser)
+{
+    QFile file(usersDatabasePath);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        alert("Sorry! Couldn't open store file!");
+        return;
+    }
+
+    QString fileText = file.readAll();
+
+    file.close();
+
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(fileText.toUtf8());
+
+    QJsonObject documentObj = jsonDoc.object();
+
+    QJsonArray usersArray = documentObj["users"].toArray();
+
+    for (qsizetype i = 0; i < usersArray.size(); i++)
+    {
+        QJsonObject user = usersArray.at(i).toObject();
+
+        if (user["id"].toInt() == correctedUser->getId())
+        {
+            user["name"] = correctedUser->getName();
+            user["surname"] = correctedUser->getSurname();
+            user["phone"] = correctedUser->getPhoneNumber();
+            user["age"] = correctedUser->getAge();
+            usersArray.replace(i, user);
+
+            documentObj["users"] = usersArray;
+
+            jsonDoc.setObject(documentObj);
+
+            file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+            file.write(jsonDoc.toJson());
+            file.close();
+
+            registeredUser = new User(correctedUser);
+            mainWidget->setUser(registeredUser);
+
+            info("You have successfully changed your profile!");
+
+            return;
+        }
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (mainWidget->isProfileChanged())
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Profile changes are not saved, if you exit the program, the changes will be lost!");
+        msgBox.setStandardButtons(QMessageBox::Close | QMessageBox::Save | QMessageBox::Cancel);
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int res = msgBox.exec();
+        if (res == QMessageBox::Save)
+        {
+            mainWidget->saveProfileChanges();
+        }
+        else if (res == QMessageBox::Cancel)
+        {
+            event->ignore();
+        }
+    }
 }

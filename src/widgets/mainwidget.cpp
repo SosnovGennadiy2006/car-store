@@ -31,6 +31,9 @@ MainWidget::MainWidget(QWidget *parent)
         emit this->onExitButtonClicked();
     });
     connect(widgetMenu, &Menu::onProfileButtonClicked, this, &MainWidget::redirectToProfile);
+    connect(profile, &ProfileWidget::userCorrected, this, [this](User* correctedUser){
+        emit onUserCorrected(correctedUser);
+    });
 }
 
 User* MainWidget::getUser() const
@@ -44,7 +47,17 @@ void MainWidget::setUser(User* newUser)
     profile->setUser(registeredUser);
 }
 
+bool MainWidget::isProfileChanged()
+{
+    return profile->isChanged();
+}
+
 void MainWidget::redirectToProfile()
 {
-    qDebug() << "!!!\n";
+}
+
+
+void MainWidget::saveProfileChanges()
+{
+    profile->saveUser();
 }

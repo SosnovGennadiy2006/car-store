@@ -24,7 +24,8 @@ private:
     QString registrationDate;
 public:
     User() = default;
-    User(const UserTypes& _type);
+    explicit User(const UserTypes& _type);
+    explicit User(const User* other);
     User(const User& other);
 
     qint32 getId() const;

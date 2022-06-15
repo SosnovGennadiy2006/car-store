@@ -10,12 +10,20 @@ Menu::Menu(QWidget *parent)
     profileButton = new MenuButton();
     profileButton->setText("Profile");
 
+    catalogButton = new MenuButton();
+    catalogButton->setText("Catalog");
+
+    cartButton = new MenuButton();
+    cartButton->setText("Cart");
+
     exitButton = new MenuButton();
     exitButton->setText("Exit");
 
     spacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     menuLayout->addWidget(profileButton);
+    menuLayout->addWidget(catalogButton);
+    menuLayout->addWidget(cartButton);
     menuLayout->addWidget(exitButton);
     menuLayout->addItem(spacer);
 

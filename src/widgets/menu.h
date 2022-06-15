@@ -15,6 +15,8 @@ class Menu : public QFrame
     QVBoxLayout* menuLayout;
 
     MenuButton* profileButton;
+    MenuButton* catalogButton;
+    MenuButton* cartButton;
     MenuButton* exitButton;
 
     QSpacerItem* spacer;

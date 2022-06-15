@@ -30,8 +30,13 @@ public:
 
     void setUser(User* newUser);
 
+    bool isProfileChanged();
+
+    void saveProfileChanges();
+
 signals:
     void onExitButtonClicked();
+    void onUserCorrected(User* correctedUser);
 
 public slots:
     void redirectToProfile();
