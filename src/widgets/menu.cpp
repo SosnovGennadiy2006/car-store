@@ -36,6 +36,9 @@ Menu::Menu(QWidget *parent)
     connect(cartButton, &MenuButton::clicked, this, [this](){
         emit this->onCartButtonClicked();
     });
+    connect(catalogButton, &MenuButton::clicked, this, [this](){
+        emit this->onCatalogButtonClicked();
+    });
     connect(exitButton, &MenuButton::clicked, this, [this](){
         emit this->onExitButtonClicked();
     });

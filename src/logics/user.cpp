@@ -10,6 +10,7 @@ User::User(const UserTypes& _type)
     phoneNumber = "";
     userType = _type;
     registrationDate = "";
+    allUserOrders = QVector<Order>(0);
 }
 
 User::User(const User& other)
@@ -23,6 +24,7 @@ User::User(const User& other)
     phoneNumber = other.getPhoneNumber();
     userType = other.getUserType();
     registrationDate = other.getRegistrationDate();
+    allUserOrders = other.getOrders();
 }
 
 User::User(const User* other)
@@ -36,6 +38,7 @@ User::User(const User* other)
     phoneNumber = other->getPhoneNumber();
     userType = other->getUserType();
     registrationDate = other->getRegistrationDate();
+    allUserOrders = other->getOrders();
 }
 
 User::User(const QJsonObject& jsonObj)
@@ -48,6 +51,7 @@ User::User(const QJsonObject& jsonObj)
     userEmailAdress = jsonObj["email"].toString();
     registrationDate = jsonObj["registrationDate"].toString();
     phoneNumber = jsonObj["phone"].toString();
+    allUserOrders = QVector<Order>(0);
 
     QString _userType = jsonObj["type"].toString();
 

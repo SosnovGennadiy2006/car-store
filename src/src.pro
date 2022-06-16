@@ -31,6 +31,7 @@ SOURCES += \
     widgets/mainwidget.cpp \
     widgets/menu.cpp \
     widgets/menuWidgets/cartwidget.cpp \
+    widgets/menuWidgets/catalogwidget.cpp \
     widgets/menuWidgets/profilewidget.cpp \
     widgets/menuWidgets/userorderswidget.cpp \
     widgets/signinform.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
     widgets/mainwidget.h \
     widgets/menu.h \
     widgets/menuWidgets/cartwidget.h \
+    widgets/menuWidgets/catalogwidget.h \
     widgets/menuWidgets/profilewidget.h \
     widgets/menuWidgets/userorderswidget.h \
     widgets/signinform.h \

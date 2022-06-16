@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     d.cd("json");
 
     usersDatabasePath = d.path() + "/users.json";
+    ordersDatabasePath = d.path() + "/orders.json";
 }
 
 MainWindow::~MainWindow()
@@ -79,11 +80,29 @@ void MainWindow::signIn()
 
     file.close();
 
+    QFile orderFile(ordersDatabasePath);
+
+    if (!orderFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        alert("Sorry! Couldn't open store file!");
+        return;
+    }
+
+    QString orders_fileText = orderFile.readAll();
+
+    orderFile.close();
+
     QJsonDocument jsonDoc = QJsonDocument::fromJson(fileText.toUtf8());
 
     QJsonObject documentObj = jsonDoc.object();
 
     QJsonArray usersArray = documentObj["users"].toArray();
+
+    QJsonDocument jsonDoc_orders = QJsonDocument::fromJson(orders_fileText.toUtf8());
+
+    QJsonObject documentObj_orders = jsonDoc_orders.object();
+
+    QJsonArray ordersArray = documentObj["orders"].toArray();
 
     if (userName == "")
     {
@@ -116,6 +135,15 @@ void MainWindow::signIn()
                     user["name"].toString() == userName)
             {
                 registeredUser = new User(user);
+
+                for (qsizetype j = 0; j < ordersArray.size(); j++)
+                {
+                    QJsonObject order = ordersArray.at(j).toObject();
+                    if (order["customerId"].toInt() == registeredUser->getId())
+                    {
+                        registeredUser->addOrder(Order(order));
+                    }
+                }
 
                 info("You have been successfully signed in!");
 

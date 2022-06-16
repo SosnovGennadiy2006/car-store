@@ -9,6 +9,7 @@
 #include <widgets/menu.h>
 #include <widgets/menuWidgets/profilewidget.h>
 #include <widgets/menuWidgets/cartwidget.h>
+#include <widgets/menuWidgets/catalogwidget.h>
 
 class MainWidget : public QWidget
 {
@@ -24,8 +25,11 @@ class MainWidget : public QWidget
 
     CartWidget* shoppingCart;
 
+    CatalogWidget* catalog;
+
     QScrollArea* profileScroll;
     QScrollArea* cartScroll;
+    QScrollArea* catalogScroll;
 
 public:
     explicit MainWidget(QWidget *parent = nullptr);
@@ -45,6 +49,7 @@ signals:
 public slots:
     void redirectToProfile();
     void redirectToCart();
+    void redirectToCatalog();
 };
 
 #endif // MAINWIDGET_H

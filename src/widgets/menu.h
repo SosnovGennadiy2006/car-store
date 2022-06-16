@@ -27,6 +27,7 @@ public:
 signals:
     void onProfileButtonClicked();
     void onCartButtonClicked();
+    void onCatalogButtonClicked();
     void onExitButtonClicked();
 };
 

@@ -33,9 +33,36 @@ CartWidget::CartWidget(QWidget *parent) : QFrame{parent}
     hLine1->setFrameShape(QFrame::HLine);
     hLine1->setFrameShadow(QFrame::Sunken);
 
+    hLine2 = new QFrame(this);
+    hLine2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    hLine2->setFixedHeight(2);
+    hLine2->setFrameShape(QFrame::HLine);
+    hLine2->setFrameShadow(QFrame::Sunken);
+
+    goToCatalogWidget = new QWidget(this);
+    goToCatalogLayout = new QHBoxLayout(goToCatalogWidget);
+    goToCatalogLabel = new QLabel(goToCatalogWidget);
+    goToCatalogLabel->setText("You can add order in catalog:");
+    goToCatalogButton = new QPushButton(goToCatalogWidget);
+    goToCatalogButton->setText("Go to Catalog");
+    goToCatalogButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+    goToCatalogButton->setStyleSheet("border: 1px solid #222; padding: 5px 10px;");
+    spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    goToCatalogLayout->addWidget(goToCatalogLabel);
+    goToCatalogLayout->addWidget(goToCatalogButton);
+    goToCatalogLayout->addItem(spacer);
+    goToCatalogLayout->setContentsMargins(0, 0, 0, 0);
+
     mainLayout->addWidget(welcomeLabel);
     mainLayout->addWidget(hLine1);
     mainLayout->addWidget(aboutLabel);
+    mainLayout->addWidget(hLine2);
+    mainLayout->addWidget(goToCatalogWidget);
+
+    connect(goToCatalogButton, &QPushButton::clicked, this, [this](){
+        emit onRedirectionButtonClicked();
+    });
 }
 
 User* CartWidget::getUser() const
