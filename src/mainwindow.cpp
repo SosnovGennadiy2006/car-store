@@ -106,8 +106,6 @@ void MainWindow::signIn()
         return;
     }
 
-    registeredUser = new User(UserTypes::client);
-
     for (qsizetype i = 0; i < usersArray.size(); i++)
     {
         QJsonObject user = usersArray.at(i).toObject();
@@ -117,27 +115,7 @@ void MainWindow::signIn()
             if (user["password"].toString() == userPassword &&
                     user["name"].toString() == userName)
             {
-                registeredUser->setId(user["id"].toInt());
-                registeredUser->setName(user["name"].toString());
-                registeredUser->setSurname(user["surname"].toString());
-                registeredUser->setAge(user["age"].toInt());
-                registeredUser->setPassword(user["password"].toString());
-                registeredUser->setEmailAdress(user["email"].toString());
-                registeredUser->setRegistrationDate(user["registrationDate"].toString());
-                registeredUser->setPhoneNumber(user["phone"].toString());
-
-                QString userType = user["type"].toString();
-
-                if (userType == "client")
-                {
-                    registeredUser->setUserType(UserTypes::client);
-                }else if(userType == "vendor")
-                {
-                    registeredUser->setUserType(UserTypes::vendor);
-                }else if(userType == "admin")
-                {
-                    registeredUser->setUserType(UserTypes::admin);
-                }
+                registeredUser = new User(user);
 
                 info("You have been successfully signed in!");
 

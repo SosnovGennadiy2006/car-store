@@ -18,6 +18,8 @@ SOURCES += \
     libs/RangeLineEdit/Ranges.cpp \
     libs/RangeLineEdit/TrianglePaintedButton.cpp \
     logics/order.cpp \
+    logics/products/car.cpp \
+    logics/products/detail.cpp \
     logics/user.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -45,6 +47,8 @@ HEADERS += \
     libs/RangeLineEdit/Ranges.h \
     libs/RangeLineEdit/TrianglePaintedButton.h \
     logics/order.h \
+    logics/products/car.h \
+    logics/products/detail.h \
     logics/user.h \
     mainwindow.h \
     widgets/buttons/customcheckbox.h \
@@ -67,6 +71,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    json/orders.json \
     json/users.json \
     libs/RangeLineEdit/.gitignore \
     libs/RangeLineEdit/LICENSE \

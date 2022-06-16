@@ -38,6 +38,31 @@ User::User(const User* other)
     registrationDate = other->getRegistrationDate();
 }
 
+User::User(const QJsonObject& jsonObj)
+{
+    userId = jsonObj["id"].toInt();
+    userName = jsonObj["name"].toString();
+    userSurname = jsonObj["surname"].toString();
+    userAge = jsonObj["age"].toInt();
+    userPassword = jsonObj["password"].toString();
+    userEmailAdress = jsonObj["email"].toString();
+    registrationDate = jsonObj["registrationDate"].toString();
+    phoneNumber = jsonObj["phone"].toString();
+
+    QString _userType = jsonObj["type"].toString();
+
+    if (_userType == "client")
+    {
+        userType = UserTypes::client;
+    }else if(_userType == "vendor")
+    {
+        userType = UserTypes::vendor;
+    }else if(_userType == "admin")
+    {
+        userType = UserTypes::admin;
+    }
+}
+
 qint32 User::getId() const
 {
     return userId;

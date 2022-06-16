@@ -16,6 +16,7 @@
 #include <widgets/welcomewidget.h>
 #include <widgets/mainwidget.h>
 #include <logics/user.h>
+#include <logics/order.h>
 
 class MainWindow : public QMainWindow
 {
@@ -27,6 +28,7 @@ class MainWindow : public QMainWindow
     MainWidget* mainWidget;
 
     QString usersDatabasePath;
+    QString ordersDatabasePath;
 
     User* registeredUser = new User(UserTypes::client);
 

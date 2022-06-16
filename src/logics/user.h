@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QJsonObject>
 #include <logics/order.h>
 
 enum UserTypes
@@ -27,9 +28,10 @@ private:
     QVector<Order> allUserOrders;
 public:
     User() = default;
+    User(const User& other);
     explicit User(const UserTypes& _type);
     explicit User(const User* other);
-    User(const User& other);
+    explicit User(const QJsonObject& jsonObj);
 
     qint32 getId() const;
     QString getName() const;
