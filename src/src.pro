@@ -20,6 +20,7 @@ SOURCES += \
     logics/order.cpp \
     logics/products/car.cpp \
     logics/products/detail.cpp \
+    logics/products/product.cpp \
     logics/user.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -28,12 +29,21 @@ SOURCES += \
     widgets/buttons/profileLineEdits/profilelineedit_int.cpp \
     widgets/buttons/profileLineEdits/profilelineedit_phone.cpp \
     widgets/buttons/profileLineEdits/profilelineedit_string.cpp \
+    widgets/layouts/layoutcombobox.cpp \
+    widgets/layouts/layoutdoublespinbox.cpp \
+    widgets/layouts/layoutlineedit.cpp \
+    widgets/layouts/layoutspinbox.cpp \
+    widgets/line.cpp \
     widgets/mainwidget.cpp \
     widgets/menu.cpp \
     widgets/menuWidgets/cartwidget.cpp \
     widgets/menuWidgets/catalogwidget.cpp \
     widgets/menuWidgets/profilewidget.cpp \
     widgets/menuWidgets/userorderswidget.cpp \
+    widgets/menuWidgets/userproductswidget.cpp \
+    widgets/modalWindows/addcarwindow.cpp \
+    widgets/modalWindows/adddetailwindow.cpp \
+    widgets/modalWindows/addproductwindow.cpp \
     widgets/signinform.cpp \
     widgets/signupform.cpp \
     widgets/welcomewidget.cpp
@@ -50,6 +60,7 @@ HEADERS += \
     logics/order.h \
     logics/products/car.h \
     logics/products/detail.h \
+    logics/products/product.h \
     logics/user.h \
     mainwindow.h \
     widgets/buttons/customcheckbox.h \
@@ -57,12 +68,21 @@ HEADERS += \
     widgets/buttons/profileLineEdits/profilelineedit_int.h \
     widgets/buttons/profileLineEdits/profilelineedit_phone.h \
     widgets/buttons/profileLineEdits/profilelineedit_string.h \
+    widgets/layouts/layoutcombobox.h \
+    widgets/layouts/layoutdoublespinbox.h \
+    widgets/layouts/layoutlineedit.h \
+    widgets/layouts/layoutspinbox.h \
+    widgets/line.h \
     widgets/mainwidget.h \
     widgets/menu.h \
     widgets/menuWidgets/cartwidget.h \
     widgets/menuWidgets/catalogwidget.h \
     widgets/menuWidgets/profilewidget.h \
     widgets/menuWidgets/userorderswidget.h \
+    widgets/menuWidgets/userproductswidget.h \
+    widgets/modalWindows/addcarwindow.h \
+    widgets/modalWindows/adddetailwindow.h \
+    widgets/modalWindows/addproductwindow.h \
     widgets/signinform.h \
     widgets/signupform.h \
     widgets/welcomewidget.h
@@ -74,6 +94,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     json/orders.json \
+    json/products.json \
     json/users.json \
     libs/RangeLineEdit/.gitignore \
     libs/RangeLineEdit/LICENSE \

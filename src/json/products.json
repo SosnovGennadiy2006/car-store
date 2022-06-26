@@ -1,0 +1,68 @@
+{
+    "products": [
+        {
+            "amount": 0,
+            "cars": [
+            ],
+            "details": [
+                {
+                    "brakeDiscsType": "undefined",
+                    "brakeDiscsTypeOfMaterial": "undefined",
+                    "caliperType": "undefined",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "engine",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "1",
+                    "price": 10,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "undefined",
+                    "wheelRubberRadius": 15
+                }
+            ],
+            "price": 10,
+            "productId": 1,
+            "productType": "detail",
+            "vendorId": 1
+        },
+        {
+            "amount": 100,
+            "cars": [
+                {
+                    "bodyTape": "coupe",
+                    "driveUnit": "all",
+                    "mark": "f",
+                    "name": "f",
+                    "price": 1110,
+                    "transmission": "automatic"
+                }
+            ],
+            "details": [
+                {
+                    "brakeDiscsType": "ventilated",
+                    "brakeDiscsTypeOfMaterial": "metal",
+                    "caliperType": "undefined",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "brake discs",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "1",
+                    "price": 10,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "undefined",
+                    "wheelRubberRadius": 15
+                }
+            ],
+            "price": 1120,
+            "productId": 1,
+            "productType": "package",
+            "vendorId": 1
+        }
+    ]
+}

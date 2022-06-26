@@ -4,9 +4,9 @@
 #include <QVector>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <cassert>
 #include <logics/products/car.h>
 #include <logics/products/detail.h>
+#include <logics/products/product.h>
 
 enum OrderTypes
 {
@@ -19,13 +19,11 @@ enum OrderTypes
 class Order {
 private:
     qint32 _customerID;
-    qint32 _vendorID;
     qint32 _orderID;
     QString _orderPlacedDate;
     QString _deliveryDate;
-    QVector<Car> _orderCars;
-    QVector<Detail> _orderDetails;
     OrderTypes _orderType;
+    Product _orderProduct;
 
 public:
     Order();
@@ -33,23 +31,19 @@ public:
 
     qint32 getOrderID() const;
 
-    qint32 getVendorID() const;
-
     qint32 getCustomerID() const;
 
     QString getOrderPlacedDate() const;
 
     QString getDeliveryDate() const;
 
-    QVector<Car> getCars() const;
-
-    QVector<Detail> getDetails() const;
-
     OrderTypes getOrderType() const;
 
-    void setOrderID(qint32 orderID);
+    Product getProduct() const;
 
-    void setVendorID(qint32 vendorID);
+    double getPrice() const;
+
+    void setOrderID(qint32 orderID);
 
     void setCustomerID(qint32 customerID);
 
@@ -57,19 +51,19 @@ public:
 
     void setDeliveryDate(const QString &deliveryDate);
 
-    void setCars(const QVector<Car> &cars);
-
-    void setCarParts(const QVector<Detail> &carParts);
-
     void setOrderType(const OrderTypes& newType);
+
+    void setProduct(const Product& newProduct);
 
     void addCar(const Car &car);
 
     void addDetail(const Detail &carDetail);
 
-    void deleteCar(int carIndex);
+    void deleteCar(qsizetype carIndex);
 
-    void deleteDetail(int carDetail);
+    void deleteDetail(qsizetype detailIndex);
+
+    QJsonObject toJson() const;
 
     static QString orderTypeToString(OrderTypes type);
     static OrderTypes stringToOrderType(const QString& str);

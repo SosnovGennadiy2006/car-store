@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QJsonObject>
 #include <logics/order.h>
+#include <logics/products/product.h>
 
 enum UserTypes
 {
@@ -26,6 +27,7 @@ private:
     UserTypes userType;
     QString registrationDate;
     QVector<Order> allUserOrders;
+    QVector<Product> allUserProducts;
 public:
     User() = default;
     User(const User& other);
@@ -44,6 +46,8 @@ public:
     QString getRegistrationDate() const;
     QVector<Order> getOrders() const;
     Order getOrder(qsizetype idx) const;
+    QVector<Product> getProducts() const;
+    Product getProduct(qsizetype idx) const;
 
     void setId(const qint32& id);
     void setName(const QString& name);
@@ -59,6 +63,11 @@ public:
     void popOrder();
     void setOrders(const QVector<Order>& newOrders);
     void setOrder(qsizetype idx, const Order& newOrder);
+
+    void addProduct(const Product& addedProduct);
+    void popProduct();
+    void setProducts(const QVector<Product>& newProducts);
+    void setProduct(qsizetype idx, const Product& newProduct);
 };
 
 #endif // USER_H

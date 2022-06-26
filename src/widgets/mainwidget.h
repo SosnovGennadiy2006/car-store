@@ -45,6 +45,7 @@ public:
 signals:
     void onExitButtonClicked();
     void onUserCorrected(User* correctedUser);
+    void onProductSaved(Product productToSave);
 
 public slots:
     void redirectToProfile();

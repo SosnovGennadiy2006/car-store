@@ -64,6 +64,9 @@ MainWidget::MainWidget(QWidget *parent)
     connect(profile, &ProfileWidget::userCorrected, this, [this](User* correctedUser){
         emit onUserCorrected(correctedUser);
     });
+    connect(shoppingCart, &CartWidget::onProductSaved, this, [this](Product p){
+        emit onProductSaved(p);
+    });
 
 }
 
@@ -76,6 +79,7 @@ void MainWidget::setUser(User* newUser)
 {
     registeredUser = newUser;
     profile->setUser(registeredUser);
+    shoppingCart->setUser(registeredUser);
 }
 
 bool MainWidget::isProfileChanged()

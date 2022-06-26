@@ -4,7 +4,9 @@
 
 #ifndef CARSTORE_DETAIL_H
 #define CARSTORE_DETAIL_H
-#include <string>
+
+#include <QString>
+#include <QJsonObject>
 
 //Типы деталей
 enum DetailTypes{
@@ -28,7 +30,7 @@ enum RubberTypes{
 //Типы свечей
 enum CandleTypes{
     candle_singleElectrode,
-    candle_multielectrode,
+    candle_multieElectrode,
     candle_special,
     candle_torch,
     candle_plasmaPrechamber,
@@ -45,7 +47,7 @@ enum CarburetorTypes{
 };
 
 //Виды суппортов
-enum CaliperType{
+enum CaliperTypes{
     caliper_floating, //плавающий
     caliper_fixed, //фиксированный
     undefined_caliperType
@@ -66,33 +68,40 @@ enum BrakeDiscsTypesOfMaterial{
     undefined_brakeDiscsTypeOfMaterial
 };
 
-class detail {
-    std::string nameManufacturer;
-    double engineVolume;
-    int enginePower;
-    RubberTypes wheelRubber;
+class Detail {
     DetailTypes detailType;
-    int candleSize;
+    QString name;
+    QString nameManufacturer;
+    double engineVolume;
+    qint32 enginePower;
+    RubberTypes wheelRubber;
+    qint32 candleSize;
     CandleTypes candleType;
     CarburetorTypes carburetorType;
-    CaliperType caliperType;
+    CaliperTypes caliperType;
     BrakeDiscsTypes brakeDiscsType;
     BrakeDiscsTypesOfMaterial brakeDiscsTypeOfMaterial;
-    int heatNumber;
-    int wheelRubberRadius;
-    int wheelDiskRadius;
+    qint32 heatNumber;
+    qint32 wheelRubberRadius;
+    qint32 wheelDiskRadius;
+    double price;
 
 public:
-    detail();
+    Detail();
+    Detail(const Detail& other);
+    Detail(const QJsonObject& jsonObj);
 
-    std::string getNameManufacturer() const;
-    void setNameManufacturer(std::string new_val);
+    QString getName() const;
+    void setName(const QString& new_val);
+
+    QString getNameManufacturer() const;
+    void setNameManufacturer(const QString& new_val);
 
     double getEngineVolume() const;
     void setEngineVolume(double new_val);
 
-    int getEnginePower() const;
-    void setEnginePower(int new_val);
+    qint32 getEnginePower() const;
+    void setEnginePower(qint32 new_val);
 
     RubberTypes getWheelRubber() const;
     void setWheelRubber(RubberTypes new_val);
@@ -100,8 +109,8 @@ public:
     DetailTypes getDetailType() const;
     void setDetailType(DetailTypes new_val);
 
-    int getCandleSize() const;
-    void setCandleSize(int new_val);
+    qint32 getCandleSize() const;
+    void setCandleSize(qint32 new_val);
 
     CandleTypes getCandleType() const;
     void setCandleType(CandleTypes new_val);
@@ -109,8 +118,8 @@ public:
     CarburetorTypes getCarburetorType() const;
     void setCarburetorType(CarburetorTypes new_val);
 
-    CaliperType getCaliperType() const;
-    void setCaliperType(CaliperType new_val);
+    CaliperTypes getCaliperType() const;
+    void setCaliperType(CaliperTypes new_val);
 
     BrakeDiscsTypes getBrakeDiscsType() const;
     void setBrakeDiscsType(BrakeDiscsTypes new_val);
@@ -118,14 +127,40 @@ public:
     BrakeDiscsTypesOfMaterial getBrakeDiscsTypeOfMaterial() const;
     void setBrakeDiscsTypeOfMaterial(BrakeDiscsTypesOfMaterial new_val);
 
-    int getHeatNumber() const;
-    void setHeatNumber(int new_val);
+    qint32 getHeatNumber() const;
+    void setHeatNumber(qint32 new_val);
 
-    int getWheelRubberRadius() const;
-    void setWheelRubberRadius(int new_val);
+    qint32 getWheelRubberRadius() const;
+    void setWheelRubberRadius(qint32 new_val);
 
-    int getWheelDiskRadius() const;
-    void setWheelDiskRadius(int new_val);
+    qint32 getWheelDiskRadius() const;
+    void setWheelDiskRadius(qint32 new_val);
+
+    double getPrice() const;
+    void setPrice(double new_val);
+
+    static QString detailTypeToString(DetailTypes type);
+    static DetailTypes stringToDetailType(const QString& str);
+
+    static QString rubberTypeToString(RubberTypes type);
+    static RubberTypes stringToRubberType(const QString& str);
+
+    static QString candleTypeToString(CandleTypes type);
+    static CandleTypes stringToCandleType(const QString& str);
+
+    static QString carburetorTypeToString(CarburetorTypes type);
+    static CarburetorTypes stringToCarburetorType(const QString& str);
+
+    static QString caliperTypeToString(CaliperTypes type);
+    static CaliperTypes stringToCaliperType(const QString& str);
+
+    static QString brakeDiscsTypeToString(BrakeDiscsTypes type);
+    static BrakeDiscsTypes stringToBrakeDiscsType(const QString& str);
+
+    static QString brakeDiscsTypesOfMaterialToString(BrakeDiscsTypesOfMaterial type);
+    static BrakeDiscsTypesOfMaterial stringToBrakeDiscsTypesOfMaterial(const QString& str);
+
+    QJsonObject toJson() const;
 };
 
 

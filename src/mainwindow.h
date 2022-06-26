@@ -29,6 +29,7 @@ class MainWindow : public QMainWindow
 
     QString usersDatabasePath;
     QString ordersDatabasePath;
+    QString productsDatabasePath;
 
     User* registeredUser = new User(UserTypes::client);
 
@@ -50,5 +51,6 @@ public slots:
     void signUp();
     void exit();
     void userCorrected(User* correctedUser);
+    void saveProduct(Product productToSave);
 };
 #endif // MAINWINDOW_H

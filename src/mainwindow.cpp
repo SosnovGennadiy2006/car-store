@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(welcomeWidget, &WelcomeWidget::onSignUp, this, &MainWindow::signUp);
     connect(mainWidget, &MainWidget::onExitButtonClicked, this, &MainWindow::exit);
     connect(mainWidget, &MainWidget::onUserCorrected, this, &MainWindow::userCorrected);
+    connect(mainWidget, &MainWidget::onProductSaved, this, &MainWindow::saveProduct);
 
     QDir d = QDir::current();
     d.cdUp();
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     usersDatabasePath = d.path() + "/users.json";
     ordersDatabasePath = d.path() + "/orders.json";
+    productsDatabasePath = d.path() + "/products.json";
 }
 
 MainWindow::~MainWindow()
@@ -92,6 +94,18 @@ void MainWindow::signIn()
 
     orderFile.close();
 
+    QFile productFile(productsDatabasePath);
+
+    if (!productFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        alert("Sorry! Couldn't open store file!");
+        return;
+    }
+
+    QString products_fileText = productFile.readAll();
+
+    productFile.close();
+
     QJsonDocument jsonDoc = QJsonDocument::fromJson(fileText.toUtf8());
 
     QJsonObject documentObj = jsonDoc.object();
@@ -102,7 +116,13 @@ void MainWindow::signIn()
 
     QJsonObject documentObj_orders = jsonDoc_orders.object();
 
-    QJsonArray ordersArray = documentObj["orders"].toArray();
+    QJsonDocument jsonDoc_products = QJsonDocument::fromJson(products_fileText.toUtf8());
+
+    QJsonObject documentObj_products = jsonDoc_products.object();
+
+    QJsonArray ordersArray = documentObj_orders["orders"].toArray();
+
+    QJsonArray productsArray = documentObj_products["products"].toArray();
 
     if (userName == "")
     {
@@ -142,6 +162,15 @@ void MainWindow::signIn()
                     if (order["customerId"].toInt() == registeredUser->getId())
                     {
                         registeredUser->addOrder(Order(order));
+                    }
+                }
+
+                for (qsizetype j = 0; j < productsArray.size(); j++)
+                {
+                    QJsonObject product = productsArray.at(j).toObject();
+                    if (product["vendorId"].toInt() == registeredUser->getId())
+                    {
+                        registeredUser->addProduct(Product(product));
                     }
                 }
 
@@ -361,4 +390,47 @@ void MainWindow::closeEvent(QCloseEvent *event)
             event->ignore();
         }
     }
+}
+
+void MainWindow::saveProduct(Product productToSave)
+{
+
+    QFile productFile(productsDatabasePath);
+
+    if (!productFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        alert("Sorry! Couldn't open store file!");
+        return;
+    }
+
+    QString products_fileText = productFile.readAll();
+
+    productFile.close();
+
+    QJsonDocument jsonDoc_products = QJsonDocument::fromJson(products_fileText.toUtf8());
+
+    QJsonObject documentObj_products = jsonDoc_products.object();
+
+    QJsonArray productsArray = documentObj_products["products"].toArray();
+
+    int newId;
+    if (productsArray.size() != 0)
+    {
+        newId = productsArray[productsArray.size() - 1].toObject()["productId"].toInt();
+    }else
+    {
+        newId = 1;
+    }
+
+    productToSave.setProductID(newId);
+
+    productsArray.push_back(productToSave.toJson());
+
+    documentObj_products["products"] = productsArray;
+
+    jsonDoc_products.setObject(documentObj_products);
+
+    productFile.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+    productFile.write(jsonDoc_products.toJson());
+    productFile.close();
 }

@@ -6,88 +6,65 @@ Order::Order()
     _orderID = -1;
     _orderPlacedDate = "";
     _deliveryDate = "";
-    _orderCars = QVector<Car>(0);
-    _orderDetails = QVector<Detail>(0);
     _orderType = OrderTypes::undefined;
+    _orderProduct = Product();
 }
 
 Order::Order(QJsonObject jsonObj)
 {
     _customerID = jsonObj["customerId"].toInt();
-    _orderID = jsonObj["customerId"].toInt();
-    _orderPlacedDate = jsonObj["customerId"].toString();
-    _deliveryDate = jsonObj["customerId"].toString();
-    _orderCars = QVector<Car>(0);
-    _orderDetails = QVector<Detail>(0);
-    _orderType = Order::stringToOrderType(jsonObj["customerId"].toString());
-    QJsonArray cars = jsonObj["orderCars"].toArray();
-//    QJsonArray details = jsonObj["orderDetails"].toArray();
-
-    for (qsizetype i = 0; i < cars.size(); i++)
-    {
-        _orderCars.append(Car(cars[i].toObject()));
-    }
+    _orderID = jsonObj["orderId"].toInt();
+    _orderPlacedDate = jsonObj["placedDate"].toString();
+    _deliveryDate = jsonObj["deliveryDate"].toString();
+    _orderType = Order::stringToOrderType(jsonObj["orderType"].toString());
+    _orderProduct = Product(jsonObj["product"].toObject());
 }
 
 qint32 Order::getOrderID() const {
-    return this->_orderID;
-}
-
-qint32 Order::getVendorID() const {
-    return this->_customerID;
+    return _orderID;
 }
 
 qint32 Order::getCustomerID() const {
-    return this->_customerID;
+    return _customerID;
 }
 
 QString Order::getOrderPlacedDate() const {
-    return this->_orderPlacedDate;
+    return _orderPlacedDate;
 }
 
 QString Order::getDeliveryDate() const {
-    return this->_orderPlacedDate;
-}
-
-QVector<Car> Order::getCars() const {
-    return this->_orderCars;
-}
-
-QVector<Detail> Order::getDetails() const {
-    return this->_orderDetails;
+    return _orderPlacedDate;
 }
 
 OrderTypes Order::getOrderType() const
 {
-    return this->_orderType;
+    return _orderType;
+}
+
+Product Order::getProduct() const
+{
+    return _orderProduct;
+}
+
+double Order::getPrice() const
+{
+    return _orderProduct.getPrice();
 }
 
 void Order::setOrderID(qint32 orderID) {
-    this->_orderID = orderID;
-}
-
-void Order::setVendorID(qint32 vendorID) {
-    this->_vendorID = vendorID;
+    _orderID = orderID;
 }
 
 void Order::setCustomerID(qint32 customerID) {
-    this->_customerID = customerID;
+    _customerID = customerID;
 }
 
 void Order::setOrderPlacedDate(const QString &orderPlacedDate){
-    this->_orderPlacedDate = orderPlacedDate;
+    _orderPlacedDate = orderPlacedDate;
 }
 
 void Order::setDeliveryDate(const QString &deliveryDate){
-    this->_deliveryDate = deliveryDate;
-}
-
-void Order::setCars(const QVector<Car> &cars){
-    this->_orderCars = cars;
-}
-
-void Order::setCarParts(const QVector<Detail> &carParts){
-    this->_orderDetails = carParts;
+    _deliveryDate = deliveryDate;
 }
 
 void Order::setOrderType(const OrderTypes& newType)
@@ -95,20 +72,38 @@ void Order::setOrderType(const OrderTypes& newType)
     _orderType = newType;
 }
 
+void Order::setProduct(const Product &newProduct)
+{
+    _orderProduct = newProduct;
+}
+
 void Order::addCar(const Car &car) {
-    this->_orderCars.push_back(car);
+    _orderProduct.addCar(car);
 }
 
 void Order::addDetail(const Detail &carDetail) {
-    this->_orderDetails.push_back(carDetail);
+    _orderProduct.addDetail(carDetail);
 }
 
-void Order::deleteCar(int carIndex) {
-    this->_orderCars.erase(this->_orderCars.cbegin()+carIndex);
+void Order::deleteCar(qsizetype carIndex) {
+    _orderProduct.deleteCar(carIndex);
 }
 
-void Order::deleteDetail(int carDetail) {
-    this->_orderDetails.erase(this->_orderDetails.cbegin()+carDetail);
+void Order::deleteDetail(qsizetype detailIndex) {
+    _orderProduct.deleteDetail(detailIndex);
+}
+
+QJsonObject Order::toJson() const
+{
+    QJsonObject res;
+    res.insert("customerId", _customerID);
+    res.insert("orderId", _orderID);
+    res.insert("placedDate", _orderPlacedDate);
+    res.insert("deliveryDate", _deliveryDate);
+    res.insert("orderType", Order::orderTypeToString(_orderType));
+    res.insert("product", _orderProduct.toJson());
+
+    return res;
 }
 
 QString Order::orderTypeToString(OrderTypes type)
@@ -132,6 +127,7 @@ QString Order::orderTypeToString(OrderTypes type)
         return "created";
     }
     }
+    return "undefined";
 }
 
 OrderTypes Order::stringToOrderType(const QString &str)
@@ -149,6 +145,5 @@ OrderTypes Order::stringToOrderType(const QString &str)
     {
         return OrderTypes::created;
     }
-    assert("Unknown order type!");
     return OrderTypes::undefined;
 }

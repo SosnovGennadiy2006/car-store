@@ -122,6 +122,16 @@ Order User::getOrder(qsizetype idx) const
     return allUserOrders[idx];
 }
 
+QVector<Product> User::getProducts() const
+{
+    return allUserProducts;
+}
+
+Product User::getProduct(qsizetype idx) const
+{
+    return allUserProducts[idx];
+}
+
 void User::setId(const qint32& id)
 {
     userId = id;
@@ -185,4 +195,24 @@ void User::setOrders(const QVector<Order> &newOrders)
 void User::setOrder(qsizetype idx, const Order &newOrder)
 {
     allUserOrders[idx] = newOrder;
+}
+
+void User::addProduct(const Product &addedProduct)
+{
+    allUserProducts.append(addedProduct);
+}
+
+void User::popProduct()
+{
+    allUserProducts.pop_back();
+}
+
+void User::setProducts(const QVector<Product> &newProducts)
+{
+    allUserProducts = newProducts;
+}
+
+void User::setProduct(qsizetype idx, const Product &newProduct)
+{
+    allUserProducts[idx] = newProduct;
 }

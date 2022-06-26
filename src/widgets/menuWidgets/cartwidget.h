@@ -11,6 +11,8 @@
 #include <QSpacerItem>
 #include <logics/user.h>
 #include <widgets/menuWidgets/userorderswidget.h>
+#include <widgets/menuWidgets/userproductswidget.h>
+#include <widgets/modalWindows/addproductwindow.h>
 
 class CartWidget : public QFrame
 {
@@ -22,16 +24,28 @@ class CartWidget : public QFrame
 
     QLabel* welcomeLabel;
     QLabel* aboutLabel;
+    UserOrdersWidget* orders;
 
     QWidget* goToCatalogWidget;
     QHBoxLayout* goToCatalogLayout;
     QLabel* goToCatalogLabel;
     QPushButton* goToCatalogButton;
 
+    QLabel* vendorLabel;
+    UserProductsWidget* products;
+
+    QWidget* createProductWidget;
+    QHBoxLayout* createProductLayout;
+    QLabel* createProductLabel;
+    QPushButton* newProductButton;
+
     QFrame* hLine1;
     QFrame* hLine2;
 
     QSpacerItem* spacer;
+    QSpacerItem* spacer2;
+
+    AddProductWindow* modalWindow;
 
 public:
     CartWidget(QWidget *parent = nullptr);
@@ -42,6 +56,10 @@ public:
 
 signals:
     void onRedirectionButtonClicked();
+    void onProductSaved(Product productToSave);
+
+public slots:
+    void addProduct();
 };
 
 #endif // CARTWIDGET_H
