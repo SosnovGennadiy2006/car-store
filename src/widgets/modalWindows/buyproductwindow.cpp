@@ -84,7 +84,7 @@ BuyProductWindow::BuyProductWindow(QWidget* parent) : QDialog{parent}
     mainLayout->addWidget(mainArea, 100);
     mainLayout->addWidget(buyButtonWidget);
 
-    connect(buyButton, &QPushButton::clicked, this, [this](){ emit buyButtonClicked(); hide(); });
+    connect(buyButton, &QPushButton::clicked, this, [this](){ emit buyButtonClicked(); });
     connect(cancelButton, &QPushButton::clicked, this, [this](){ hide(); });
 }
 

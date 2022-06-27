@@ -4,5 +4,6 @@
         <file>icons/write_icon.png</file>
         <file>icons/add_icon.png</file>
         <file>icons/view_icon.png</file>
+        <file>icons/favicon.png</file>
     </qresource>
 </RCC>

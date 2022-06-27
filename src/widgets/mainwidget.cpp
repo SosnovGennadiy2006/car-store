@@ -133,3 +133,8 @@ void MainWidget::addProductToProducts(Product newProduct)
 {
     shoppingCart->addProductToProducts(newProduct);
 }
+
+void MainWidget::setupCatalog()
+{
+    catalog->setup();
+}

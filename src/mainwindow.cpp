@@ -29,8 +29,8 @@ MainWindow::~MainWindow()
 void MainWindow::init_UI()
 {
     this->setWindowTitle("Car Store");
-
-    this->setMinimumSize(1000, 600);
+    this->setWindowIcon(QIcon(":/icons/favicon"));
+    this->setMinimumSize(1200, 600);
 
     welcomeWidget = new WelcomeWidget(this);
     welcomeWidget->show();
@@ -435,12 +435,11 @@ void MainWindow::saveProduct(Product productToSave)
     productFile.close();
 
     mainWidget->addProductToProducts(productToSave);
+    mainWidget->setupCatalog();
 }
 
 void MainWindow::saveOrder(Order orderToSave)
 {
-    qDebug() << "!!!";
-
     QFile orderFile(ordersDatabasePath);
 
     if (!orderFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -480,5 +479,43 @@ void MainWindow::saveOrder(Order orderToSave)
     orderFile.write(jsonDoc_orders.toJson());
     orderFile.close();
 
+    QFile productFile(productsDatabasePath);
+
+    if (!productFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        alert("Sorry! Couldn't open store file!");
+        return;
+    }
+
+    QString products_fileText = productFile.readAll();
+
+    productFile.close();
+
+    QJsonDocument jsonDoc_products = QJsonDocument::fromJson(products_fileText.toUtf8());
+
+    QJsonObject documentObj_products = jsonDoc_products.object();
+
+    QJsonArray productsArray = documentObj_products["products"].toArray();
+
+    for (qsizetype i = 0; i < productsArray.size(); i++)
+    {
+        if (productsArray[i].toObject()["productId"].toInt() == orderToSave.getProduct().getProductID())
+        {
+            Product p(productsArray[i].toObject());
+            p.setAmount(p.getAmount() - 1);
+            productsArray[i] = p.toJson();
+            break;
+        }
+    }
+
+    documentObj_products["products"] = productsArray;
+
+    jsonDoc_products.setObject(documentObj_products);
+
+    productFile.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+    productFile.write(jsonDoc_products.toJson());
+    productFile.close();
+
     mainWidget->addOrderToOrders(orderToSave);
+    mainWidget->setupCatalog();
 }

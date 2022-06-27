@@ -29,27 +29,27 @@ UserOrdersWidget::UserOrdersWidget(QWidget *parent)
     gridWidget->setLayout(grid);
     grid->setRowStretch(0, 0);
 
-    QLabel* orderCustomerIdLabel = new QLabel(gridWidget);
+    QLabel* orderCustomerIdLabel = new QLabel();
     orderCustomerIdLabel->setText("Customer ID");
     orderCustomerIdLabel->setFont(boldFont);
     orderCustomerIdLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderIdLabel = new QLabel(gridWidget);
+    QLabel* orderIdLabel = new QLabel();
     orderIdLabel->setText("Order ID");
     orderIdLabel->setFont(boldFont);
     orderIdLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderPlacedDateLabel = new QLabel(gridWidget);
+    QLabel* orderPlacedDateLabel = new QLabel();
     orderPlacedDateLabel->setText("Placed date");
     orderPlacedDateLabel->setFont(boldFont);
     orderPlacedDateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderDeliveryDateLabel = new QLabel(gridWidget);
+    QLabel* orderDeliveryDateLabel = new QLabel();
     orderDeliveryDateLabel->setText("Delivery date");
     orderDeliveryDateLabel->setFont(boldFont);
     orderDeliveryDateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderStateLabel = new QLabel(gridWidget);
+    QLabel* orderStateLabel = new QLabel();
     orderStateLabel->setText("Order state");
     orderStateLabel->setFont(boldFont);
     orderStateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderPriceLabel = new QLabel(gridWidget);
+    QLabel* orderPriceLabel = new QLabel();
     orderPriceLabel->setText("Price");
     orderPriceLabel->setFont(boldFont);
     orderPriceLabel->setContentsMargins(3, 3, 3, 3);
@@ -101,27 +101,27 @@ void UserOrdersWidget::setOrders(const QVector<Order>& newOrders)
     gridWidget->setLayout(grid);
     grid->setRowStretch(0, 0);
 
-    QLabel* orderCustomerIdLabel = new QLabel(gridWidget);
+    QLabel* orderCustomerIdLabel = new QLabel();
     orderCustomerIdLabel->setText("Customer ID");
     orderCustomerIdLabel->setFont(boldFont);
     orderCustomerIdLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderIdLabel = new QLabel(gridWidget);
+    QLabel* orderIdLabel = new QLabel();
     orderIdLabel->setText("Order ID");
     orderIdLabel->setFont(boldFont);
     orderIdLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderPlacedDateLabel = new QLabel(gridWidget);
+    QLabel* orderPlacedDateLabel = new QLabel();
     orderPlacedDateLabel->setText("Placed date");
     orderPlacedDateLabel->setFont(boldFont);
     orderPlacedDateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderDeliveryDateLabel = new QLabel(gridWidget);
+    QLabel* orderDeliveryDateLabel = new QLabel();
     orderDeliveryDateLabel->setText("Delivery date");
     orderDeliveryDateLabel->setFont(boldFont);
     orderDeliveryDateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderStateLabel = new QLabel(gridWidget);
+    QLabel* orderStateLabel = new QLabel();
     orderStateLabel->setText("Order state");
     orderStateLabel->setFont(boldFont);
     orderStateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderPriceLabel = new QLabel(gridWidget);
+    QLabel* orderPriceLabel = new QLabel();
     orderPriceLabel->setText("Price");
     orderPriceLabel->setFont(boldFont);
     orderPriceLabel->setContentsMargins(3, 3, 3, 3);
@@ -174,27 +174,27 @@ void UserOrdersWidget::addOrder(const Order &newOrder)
 
     int i = grid->rowCount();
 
-    QLabel* orderCustomerIdLabel = new QLabel(gridWidget);
+    QLabel* orderCustomerIdLabel = new QLabel();
     orderCustomerIdLabel->setText(QString::number(newOrder.getCustomerID()));
     orderCustomerIdLabel->setFont(normalFont);
     orderCustomerIdLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderIdLabel = new QLabel(gridWidget);
+    QLabel* orderIdLabel = new QLabel();
     orderIdLabel->setText(QString::number(newOrder.getOrderID()));
     orderIdLabel->setFont(normalFont);
     orderIdLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderPlacedDateLabel = new QLabel(gridWidget);
+    QLabel* orderPlacedDateLabel = new QLabel();
     orderPlacedDateLabel->setText(newOrder.getOrderPlacedDate());
     orderPlacedDateLabel->setFont(normalFont);
     orderPlacedDateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderDeliveryDateLabel = new QLabel(gridWidget);
+    QLabel* orderDeliveryDateLabel = new QLabel();
     orderDeliveryDateLabel->setText(newOrder.getDeliveryDate());
     orderDeliveryDateLabel->setFont(normalFont);
     orderDeliveryDateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderStateLabel = new QLabel(gridWidget);
+    QLabel* orderStateLabel = new QLabel();
     orderStateLabel->setText(Order::orderTypeToString(newOrder.getOrderType()));
     orderStateLabel->setFont(normalFont);
     orderStateLabel->setContentsMargins(3, 3, 3, 3);
-    QLabel* orderPriceLabel = new QLabel(gridWidget);
+    QLabel* orderPriceLabel = new QLabel();
     orderPriceLabel->setText(QString::number(newOrder.getPrice()));
     orderPriceLabel->setFont(normalFont);
     orderPriceLabel->setContentsMargins(3, 3, 3, 3);
@@ -213,4 +213,14 @@ void UserOrdersWidget::addOrder(const Order &newOrder)
     grid->addWidget(orderPriceLabel, i, 11, 1, 1, Qt::AlignmentFlag::AlignCenter);
     grid->addWidget(new VLine(), i, 12, 1, 1);
     grid->addWidget(new Line(), i+1, 0, 1, 13);
+
+    if (orders.size() == 0)
+    {
+        infoLabel->show();
+        gridWidget->hide();
+    }else
+    {
+        infoLabel->hide();
+        gridWidget->show();
+    }
 }

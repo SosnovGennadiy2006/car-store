@@ -115,6 +115,7 @@ void CatalogWidget::setup()
     {
         QLabel* label = new QLabel(catalogWidget);
         label->setText("There aren't any products!");
+        label->setAlignment(Qt::AlignmentFlag::AlignCenter);
         label->setFont(normalFont);
         label->setStyleSheet("color: #e53935;");
 
@@ -132,5 +133,7 @@ void CatalogWidget::setup()
                 emit productBuyed(Product(p));
             });
         }
+        QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        catalogLayout->addItem(spacer);
     }
 }

@@ -45,6 +45,8 @@ public:
     void addProductToProducts(Product newProduct);
     void addOrderToOrders(Order newOrder);
 
+    void setupCatalog();
+
 signals:
     void onExitButtonClicked();
     void onUserCorrected(User* correctedUser);
