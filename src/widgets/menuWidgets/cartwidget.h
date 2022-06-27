@@ -54,6 +54,9 @@ public:
 
     void setUser(User* newUser);
 
+    void addProductToProducts(Product newProduct);
+    void addOrderToOrders(Order newOrder);
+
 signals:
     void onRedirectionButtonClicked();
     void onProductSaved(Product productToSave);

@@ -130,7 +130,16 @@ void CartWidget::addProduct()
 
     connect(modalWindow, &AddProductWindow::productSaved, this, [this](Product p){
         p.setVendorID(registeredUser->getId());
-        products->addProduct(p);
         emit onProductSaved(p);
     });
+}
+
+void CartWidget::addOrderToOrders(Order newOrder)
+{
+    orders->addOrder(newOrder);
+}
+
+void CartWidget::addProductToProducts(Product newProduct)
+{
+    products->addProduct(newProduct);
 }

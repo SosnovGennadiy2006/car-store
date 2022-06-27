@@ -29,6 +29,7 @@ SOURCES += \
     widgets/buttons/profileLineEdits/profilelineedit_int.cpp \
     widgets/buttons/profileLineEdits/profilelineedit_phone.cpp \
     widgets/buttons/profileLineEdits/profilelineedit_string.cpp \
+    widgets/infowidget.cpp \
     widgets/layouts/layoutcombobox.cpp \
     widgets/layouts/layoutdoublespinbox.cpp \
     widgets/layouts/layoutlineedit.cpp \
@@ -38,12 +39,14 @@ SOURCES += \
     widgets/menu.cpp \
     widgets/menuWidgets/cartwidget.cpp \
     widgets/menuWidgets/catalogwidget.cpp \
+    widgets/menuWidgets/productinfowidget.cpp \
     widgets/menuWidgets/profilewidget.cpp \
     widgets/menuWidgets/userorderswidget.cpp \
     widgets/menuWidgets/userproductswidget.cpp \
     widgets/modalWindows/addcarwindow.cpp \
     widgets/modalWindows/adddetailwindow.cpp \
     widgets/modalWindows/addproductwindow.cpp \
+    widgets/modalWindows/buyproductwindow.cpp \
     widgets/signinform.cpp \
     widgets/signupform.cpp \
     widgets/welcomewidget.cpp
@@ -68,6 +71,7 @@ HEADERS += \
     widgets/buttons/profileLineEdits/profilelineedit_int.h \
     widgets/buttons/profileLineEdits/profilelineedit_phone.h \
     widgets/buttons/profileLineEdits/profilelineedit_string.h \
+    widgets/infowidget.h \
     widgets/layouts/layoutcombobox.h \
     widgets/layouts/layoutdoublespinbox.h \
     widgets/layouts/layoutlineedit.h \
@@ -77,12 +81,14 @@ HEADERS += \
     widgets/menu.h \
     widgets/menuWidgets/cartwidget.h \
     widgets/menuWidgets/catalogwidget.h \
+    widgets/menuWidgets/productinfowidget.h \
     widgets/menuWidgets/profilewidget.h \
     widgets/menuWidgets/userorderswidget.h \
     widgets/menuWidgets/userproductswidget.h \
     widgets/modalWindows/addcarwindow.h \
     widgets/modalWindows/adddetailwindow.h \
     widgets/modalWindows/addproductwindow.h \
+    widgets/modalWindows/buyproductwindow.h \
     widgets/signinform.h \
     widgets/signupform.h \
     widgets/welcomewidget.h

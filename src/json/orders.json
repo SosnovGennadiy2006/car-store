@@ -1,4 +1,30 @@
 {
     "orders": [
+        {
+            "customerId": 1,
+            "deliveryDate": "",
+            "orderId": 1,
+            "orderType": "undefined",
+            "placedDate": "27.06.2022 18:01:18",
+            "product": {
+                "amount": 20,
+                "cars": [
+                    {
+                        "bodyTape": "undefined",
+                        "driveUnit": "front",
+                        "mark": "1",
+                        "name": "1",
+                        "price": 10000,
+                        "transmission": "stepless"
+                    }
+                ],
+                "details": [
+                ],
+                "price": 10000,
+                "productId": 3,
+                "productType": "car",
+                "vendorId": 1
+            }
+        }
     ]
 }

@@ -38,8 +38,8 @@ public:
     ~MainWindow();
 
     void init_UI();
-    void alert(QString message);
-    void info(QString message);
+    void alert(const QString& message);
+    void info(const QString& message);
 
     void redirectToMainWidget();
 
@@ -52,5 +52,6 @@ public slots:
     void exit();
     void userCorrected(User* correctedUser);
     void saveProduct(Product productToSave);
+    void saveOrder(Order orderToSave);
 };
 #endif // MAINWINDOW_H

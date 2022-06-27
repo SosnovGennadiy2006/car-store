@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(mainWidget, &MainWidget::onExitButtonClicked, this, &MainWindow::exit);
     connect(mainWidget, &MainWidget::onUserCorrected, this, &MainWindow::userCorrected);
     connect(mainWidget, &MainWidget::onProductSaved, this, &MainWindow::saveProduct);
+    connect(mainWidget, &MainWidget::onOrderSaved, this, &MainWindow::saveOrder);
 
     QDir d = QDir::current();
     d.cdUp();
@@ -39,12 +40,12 @@ void MainWindow::init_UI()
     this->setCentralWidget(welcomeWidget);
 }
 
-void MainWindow::alert(QString message)
+void MainWindow::alert(const QString& message)
 {
     QMessageBox::warning(this, "Warning!", message);
 }
 
-void MainWindow::info(QString message)
+void MainWindow::info(const QString& message)
 {
     QMessageBox::information(this, "Info", message);
 }
@@ -394,7 +395,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::saveProduct(Product productToSave)
 {
-
     QFile productFile(productsDatabasePath);
 
     if (!productFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -416,7 +416,7 @@ void MainWindow::saveProduct(Product productToSave)
     int newId;
     if (productsArray.size() != 0)
     {
-        newId = productsArray[productsArray.size() - 1].toObject()["productId"].toInt();
+        newId = productsArray[productsArray.size() - 1].toObject()["productId"].toInt() + 1;
     }else
     {
         newId = 1;
@@ -433,4 +433,52 @@ void MainWindow::saveProduct(Product productToSave)
     productFile.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
     productFile.write(jsonDoc_products.toJson());
     productFile.close();
+
+    mainWidget->addProductToProducts(productToSave);
+}
+
+void MainWindow::saveOrder(Order orderToSave)
+{
+    qDebug() << "!!!";
+
+    QFile orderFile(ordersDatabasePath);
+
+    if (!orderFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        alert("Sorry! Couldn't open store file!");
+        return;
+    }
+
+    QString orders_fileText = orderFile.readAll();
+
+    orderFile.close();
+
+    QJsonDocument jsonDoc_orders = QJsonDocument::fromJson(orders_fileText.toUtf8());
+
+    QJsonObject documentObj_orders = jsonDoc_orders.object();
+
+    QJsonArray ordersArray = documentObj_orders["orders"].toArray();
+
+    int newId;
+    if (ordersArray.size() != 0)
+    {
+        newId = ordersArray[ordersArray.size() - 1].toObject()["orderId"].toInt() + 1;
+    }else
+    {
+        newId = 1;
+    }
+
+    orderToSave.setOrderID(newId);
+
+    ordersArray.push_back(orderToSave.toJson());
+
+    documentObj_orders["orders"] = ordersArray;
+
+    jsonDoc_orders.setObject(documentObj_orders);
+
+    orderFile.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+    orderFile.write(jsonDoc_orders.toJson());
+    orderFile.close();
+
+    mainWidget->addOrderToOrders(orderToSave);
 }

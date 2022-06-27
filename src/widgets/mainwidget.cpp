@@ -67,6 +67,7 @@ MainWidget::MainWidget(QWidget *parent)
     connect(shoppingCart, &CartWidget::onProductSaved, this, [this](Product p){
         emit onProductSaved(p);
     });
+    connect(catalog, &CatalogWidget::productBuyed, this, &MainWidget::onNewOrder);
 
 }
 
@@ -111,4 +112,24 @@ void MainWidget::redirectToCatalog()
 void MainWidget::saveProfileChanges()
 {
     profile->saveUser();
+}
+
+void MainWidget::onNewOrder(Product orderProduct)
+{
+    Order newOrder;
+    newOrder.setProduct(orderProduct);
+    newOrder.setCustomerID(registeredUser->getId());
+    newOrder.setOrderPlacedDate(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"));
+
+    emit onOrderSaved(newOrder);
+}
+
+void MainWidget::addOrderToOrders(Order newOrder)
+{
+    shoppingCart->addOrderToOrders(newOrder);
+}
+
+void MainWidget::addProductToProducts(Product newProduct)
+{
+    shoppingCart->addProductToProducts(newProduct);
 }

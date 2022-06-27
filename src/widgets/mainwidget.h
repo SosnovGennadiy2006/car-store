@@ -42,15 +42,20 @@ public:
 
     void saveProfileChanges();
 
+    void addProductToProducts(Product newProduct);
+    void addOrderToOrders(Order newOrder);
+
 signals:
     void onExitButtonClicked();
     void onUserCorrected(User* correctedUser);
     void onProductSaved(Product productToSave);
+    void onOrderSaved(Order orderToSave);
 
 public slots:
     void redirectToProfile();
     void redirectToCart();
     void redirectToCatalog();
+    void onNewOrder(Product orderProduct);
 };
 
 #endif // MAINWIDGET_H
