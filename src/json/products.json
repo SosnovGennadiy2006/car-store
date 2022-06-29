@@ -1,4 +1,174 @@
 {
     "products": [
+        {
+            "amount": 0,
+            "cars": [
+                {
+                    "bodyTape": "hatchback",
+                    "driveUnit": "front",
+                    "mark": "1",
+                    "name": "1",
+                    "price": 12340,
+                    "transmission": "stepless"
+                }
+            ],
+            "details": [
+            ],
+            "price": 12340,
+            "productId": 1,
+            "productType": "car",
+            "vendorId": 1
+        },
+        {
+            "amount": 0,
+            "cars": [
+                {
+                    "bodyTape": "liftback",
+                    "driveUnit": "front",
+                    "mark": "some mark",
+                    "name": "some name",
+                    "price": 444440,
+                    "transmission": "robotic"
+                }
+            ],
+            "details": [
+                {
+                    "brakeDiscsType": "undefined",
+                    "brakeDiscsTypeOfMaterial": "undefined",
+                    "caliperType": "floating",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "caliper",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "1",
+                    "price": 120,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "undefined",
+                    "wheelRubberRadius": 15
+                }
+            ],
+            "price": 444560,
+            "productId": 2,
+            "productType": "package",
+            "vendorId": 1
+        },
+        {
+            "amount": 5,
+            "cars": [
+                {
+                    "bodyTape": "undefined",
+                    "driveUnit": "front",
+                    "mark": "1",
+                    "name": "1",
+                    "price": 2230,
+                    "transmission": "automatic"
+                }
+            ],
+            "details": [
+            ],
+            "price": 2230,
+            "productId": 3,
+            "productType": "car",
+            "vendorId": 1
+        },
+        {
+            "amount": 37,
+            "cars": [
+            ],
+            "details": [
+                {
+                    "brakeDiscsType": "undefined",
+                    "brakeDiscsTypeOfMaterial": "undefined",
+                    "caliperType": "fixed",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "caliper",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "2",
+                    "price": 0,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "undefined",
+                    "wheelRubberRadius": 15
+                },
+                {
+                    "brakeDiscsType": "ventilated",
+                    "brakeDiscsTypeOfMaterial": "ceramic",
+                    "caliperType": "undefined",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "brake discs",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "3",
+                    "price": 0,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "undefined",
+                    "wheelRubberRadius": 15
+                },
+                {
+                    "brakeDiscsType": "undefined",
+                    "brakeDiscsTypeOfMaterial": "undefined",
+                    "caliperType": "undefined",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "tire",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "4",
+                    "price": 0,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "winter",
+                    "wheelRubberRadius": 15
+                },
+                {
+                    "brakeDiscsType": "undefined",
+                    "brakeDiscsTypeOfMaterial": "undefined",
+                    "caliperType": "undefined",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "wheel disk",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "5",
+                    "price": 80,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "undefined",
+                    "wheelRubberRadius": 15
+                },
+                {
+                    "brakeDiscsType": "undefined",
+                    "brakeDiscsTypeOfMaterial": "undefined",
+                    "caliperType": "undefined",
+                    "candleSize": 10,
+                    "candleType": "undefined",
+                    "carburetorType": "undefined",
+                    "detailType": "engine",
+                    "enginePower": 10,
+                    "engineVolume": 200,
+                    "heatNumber": 10,
+                    "nameManufacturer": "5",
+                    "price": 0,
+                    "wheelDiskRadius": 15,
+                    "wheelRubber": "undefined",
+                    "wheelRubberRadius": 15
+                }
+            ],
+            "price": 80,
+            "productId": 4,
+            "productType": "package",
+            "vendorId": 2
+        }
     ]
 }

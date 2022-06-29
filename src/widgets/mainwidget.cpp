@@ -120,6 +120,7 @@ void MainWidget::onNewOrder(Product orderProduct)
     newOrder.setProduct(orderProduct);
     newOrder.setCustomerID(registeredUser->getId());
     newOrder.setOrderPlacedDate(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"));
+    newOrder.setOrderType(OrderTypes::created);
 
     emit onOrderSaved(newOrder);
 }

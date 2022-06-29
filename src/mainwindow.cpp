@@ -395,6 +395,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::saveProduct(Product productToSave)
 {
+    qDebug() << "!!!";
     QFile productFile(productsDatabasePath);
 
     if (!productFile.open(QIODevice::ReadOnly | QIODevice::Text))

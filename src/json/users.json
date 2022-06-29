@@ -1,4 +1,37 @@
 {
     "users": [
+        {
+            "age": 22,
+            "email": "1@1.com",
+            "id": 1,
+            "name": "vendor",
+            "password": "12345",
+            "phone": "960-432-1124",
+            "registrationDate": "27.06.2022 21:35:30",
+            "surname": "vendor_surname",
+            "type": "vendor"
+        },
+        {
+            "age": -1,
+            "email": "2@2.com",
+            "id": 2,
+            "name": "some_name",
+            "password": "234",
+            "phone": "",
+            "registrationDate": "27.06.2022 21:53:21",
+            "surname": "",
+            "type": "vendor"
+        },
+        {
+            "age": -1,
+            "email": "3@3.com",
+            "id": 3,
+            "name": "1",
+            "password": "1",
+            "phone": "",
+            "registrationDate": "29.06.2022 19:00:04",
+            "surname": "some surname",
+            "type": "vendor"
+        }
     ]
 }
